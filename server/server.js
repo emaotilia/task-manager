@@ -35,7 +35,9 @@ app.get('/tasks/:id', (req, res) => {
 // });
 
 app.post('/tasks', (req, res) => {
-  const newTask = { id: nanoid(), ...req.body };
+  const newTask = { id: nanoid().toString(), ...req.body };
+  newTask.id = newTask.id.toString();
+
   db.data.tasks.push(newTask);
   res.status(201).json(newTask);
 });

@@ -7,7 +7,7 @@ const emit = defineEmits(['update', 'delete', 'toggle']);
 
 <template>
     <div>
-        <TaskItem v-for="task in tasks" :key="task.id" :task="task" @edit="emit('update', $event)"
+        <TaskItem v-for="task in tasks" :key="task.id" :task="task" @update="emit('update', $event)"
             @delete="emit('delete', $event)" @toggle="emit('toggle', $event)" />
     </div>
 </template>

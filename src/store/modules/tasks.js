@@ -37,14 +37,16 @@ export default {
             task.id = Date.now();
             task.isCompleted = false;
             const { data } = await axios.post(api, task);
+            debugger
             commit('addTask', data);
         },
         async updateTask({ commit }, updatedTask) {
             const { data } = await axios.put(`${api}/${task.id}`, task);
             commit('updateTask', data);
         },
-
-        deleteTask({ commit }, id) {
+        async deleteTask({ commit }, id) {
+            debugger
+            await axios.delete(`${api}/${id}`);
             commit('deleteTask', id);
         },
 
@@ -56,9 +58,8 @@ export default {
         getTasks: state => {
             return state.tasks
         },
-        getTaskById: (state) => (id) => {
-            return state.tasks.find(task => task.id === id);
-        }
+        getTask: state => id => state.tasks.find(t => t.id == id),
+
     }
 
 }

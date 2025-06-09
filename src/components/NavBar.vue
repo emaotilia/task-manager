@@ -4,8 +4,7 @@
             <router-link to="/">Home</router-link>
             <router-link to="/tasks">Tasks</router-link>
             <router-link to="/tasks/new">New Task</router-link>
-            <router-link to="/profile">Profile</router-link>
-            <router-link to="/stats">Stats</router-link>
+            <router-link to="/statistics">Statistics</router-link>
         </div>
         <div class="right-links">
             <button class="icon-button" @click="toggleTheme" :title="'Toggle dark mode'">

@@ -24,11 +24,11 @@ const loadTasks = () => {
 };
 
 function updateTask(task) {
-    router.push(`/tasks/updateTask/${task.id}`);
+    router.push(`/tasks/update/${task.id}`);
 }
 
 function deleteTask(id) {
-    store.dispatch('tasks/removeTask', id);
+    store.dispatch('tasks/deleteTask', id);
 }
 
 function toggleTask(id) {

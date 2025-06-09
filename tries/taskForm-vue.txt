@@ -1,0 +1,74 @@
+<script setup>
+import { reactive, ref } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+const props = defineProps({
+    modelValue: Object,
+    isUpdating: Boolean
+});
+const emit = defineEmits(['submit']);
+
+// Use either ref OR reactive, not both - choosing reactive here
+const task = reactive({
+    title: props.modelValue?.title || '',
+    description: props.modelValue?.description || ''
+});
+const errors = reactive({ title: '' });
+const error = ref(null);
+
+function validateForm() {
+    let valid = true;
+    errors.title = '';
+
+    if (!task.title?.trim()) {
+        errors.title = '✨ Title is required';
+        valid = false;
+    } else if (task.title.trim().length < 3) {
+        errors.title = '📝 Title must be at least 3 letters';
+        valid = false;
+    }
+    return valid;
+}
+
+async function handleSubmit() {
+  if (!validateForm()) return;
+
+  try {
+    await store.dispatch('tasks/createTask', task);
+    emit('submit', task); // Notify parent component
+    if (!props.isUpdating) {
+      // Reset form only for new tasks (not updates)
+      task.title = '';
+      task.description = '';
+    }
+    error.value = null;
+  } catch (err) {
+    error.value = err.message || 'Failed to save task';
+    console.error('Submission error:', err);
+  }
+}
+</script>
+
+<template>
+    <form @submit.prevent="handleSubmit" novalidate>
+        <label>Title: <input v-model="task.title" /></label>
+        <span v-if="errors.title" class="task-error-message">{{ errors.title }}</span>
+
+        <label>Description: <textarea v-model="task.description" /></label>
+
+        <button
+          type="submit"
+          :disabled="store.getters['tasks/isLoading']"
+        >
+          {{ store.getters['tasks/isLoading']
+             ? 'Saving...'
+             : (props.isUpdating ? 'Update' : 'Add')
+          }} Task
+        </button>
+
+        <div v-if="error" class="error-message">
+          {{ error }}
+        </div>
+    </form>
+</template>

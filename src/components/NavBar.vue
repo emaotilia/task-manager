@@ -7,9 +7,13 @@
             <router-link to="/statistics">Statistics</router-link>
         </div>
         <div class="right-links">
-            <button class="icon-button" @click="toggleTheme" :title="'Toggle dark mode'">
-                🌙
-            </button>
+          <button
+            class="icon-button"
+            @click="toggleTheme"
+            :title="isDark ? 'Toggle light mode' : 'Toggle dark mode'"
+          >
+            {{ isDark ? '☀️' : '🌙' }}
+          </button>
         </div>
     </nav>
 </template>
@@ -22,7 +26,18 @@ const darkMode = ref(false);
 const toggleTheme = () => {
     darkMode.value = !darkMode.value;
     document.body.className = darkMode.value ? 'dark' : '';
-}
+};
+
+const isDark = darkMode;
+ref(() => document.body.classList.contains('dark'));
+import { onMounted } from 'vue';
+onMounted(() => {
+    const savedTheme = localStorage.getItem('darkMode');
+    if (savedTheme === 'true') {
+        darkMode.value = true;
+        document.body.classList.add('dark');
+    }
+});
 
 </script>
 
@@ -32,12 +47,12 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background-color: #333;
-    color: white;
+    background-color: #a8f5b9;
+    color: rgb(141, 45, 101);
 }
 
 .left-links a {
-    color: white;
+    color: rgb(141, 45, 101);
     margin-right: 1rem;
     text-decoration: none;
 }
@@ -54,7 +69,7 @@ nav {
 }
 
 .icon-button {
-    background-color: #3498db;
+    background-color: #7d3486;
     border: none;
     padding: 0.5rem;
     font-size: 1.2rem;
@@ -74,10 +89,25 @@ nav {
 }
 
 .icon-button:hover {
-    background-color: #2980b9;
+    background-color: #290c3a;
 }
 
 .logout:hover {
     background-color: #c0392b;
+}
+
+.dark nav {
+    background-color: #338671;
+    color: #f3d5ff;
+}
+
+.dark .left-links a {
+    color: #f3d5ff;
+}
+.dark .icon-button {
+    background-color: #c532a0;
+}
+.dark .icon-button:hover {
+    background-color: #e7abd0;
 }
 </style>

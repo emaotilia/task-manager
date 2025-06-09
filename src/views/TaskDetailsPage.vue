@@ -4,6 +4,7 @@
         <p>{{ task.description }}</p>
     </div>
 </template>
+
 <script>
 import { mapGetters } from 'vuex';
 export default {
@@ -11,6 +12,9 @@ export default {
     computed: {
         ...mapGetters('tasks', ['getTask']),
         task() { return this.getTask(this.id); }
-    }
+    },
+    created() {
+        this.$store.dispatch('tasks/fetchTask', this.id);
+}
 };
 </script>

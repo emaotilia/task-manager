@@ -9,8 +9,16 @@ const adapter = new MemorySync();
 const db = new LowSync(adapter);
 db.read();
 db.data ||= { tasks: [] };
-
-app.use(cors());
+//app.use(cors());
+//stuff added as a try
+app.use(cors({
+  origin: 'http://localhost:5173', // Your Vite frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+app.options('*', cors());
+//stuff added as a try
 app.use(express.json());
 
 app.get('/tasks', (req, res) => {

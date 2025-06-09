@@ -3,16 +3,16 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9;
-  color: #333;
+  background-color: #ffceec;
+  color: #b32b91;
 }
 header, footer, nav {
   padding: 1rem;
-  background-color: #2c3e50;
-  color: white;
+  background-color: #b32b91;
+  color: #ffceec;
 }
 nav a {
-  color: white;
+  color: #ffceec;
   margin: 0 0.5rem;
   text-decoration: none;
 }
@@ -27,13 +27,13 @@ button {
   padding: 0.5rem 1rem;
   margin: 0.5rem 0;
   border: none;
-  background-color: #3498db;
-  color: white;
+  background-color: #3453db;
+  color: #ffceec;
   cursor: pointer;
   border-radius: 4px;
 }
 button:hover {
-  background-color: #2980b9;
+  background-color: #1a1c94;
 }
 input, textarea {
   width: 100%;
@@ -48,19 +48,46 @@ form label {
   font-weight: bold;
 }
 .task-card {
-  background: white;
+  background: #ffceec;
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px #6ac287;
 }
 body.dark {
-  background-color: #121212;
-  color: #f5f5f5;
+  background-color: #a32bb3;
+  color: #fbceff;
 }
 body.dark .task-card {
-  background-color: #1e1e1e;
+  background-color: #264430;
 }
 body.dark button {
-  background-color: #8e44ad;
+  background-color: #482258;
 }
+
+input:invalid {
+  border-color: #ff6b6b;
+}
+
+input:invalid:focus {
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
+}
+.task-error-message {
+  background-color: #ffebee;
+  color: #d32f2f;
+  padding: 8px 12px;
+  margin: 4px 0 12px 0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  display: inline-block;
+  border-left: 4px solid #d32f2f;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+body.dark .task-error-message {
+  background-color: #482258;
+  color: #ff9e9e;
+  border-left-color: #ff9e9e;
+}
+
+

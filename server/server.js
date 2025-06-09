@@ -14,7 +14,6 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/tasks', (req, res) => {
-  debugger
   res.json(db.data.tasks);
 });
 

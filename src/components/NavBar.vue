@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <div>
+        <div class="left-links">
             <router-link to="/">Home</router-link>
             <router-link to="/tasks">Tasks</router-link>
             <router-link to="/tasks/new">New Task</router-link>
@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 const darkMode = ref(false);
 
@@ -24,11 +24,6 @@ const toggleTheme = () => {
     darkMode.value = !darkMode.value;
     document.body.className = darkMode.value ? 'dark' : '';
 }
-
-onMounted(() => {
-    darkMode.value = storedTheme === 'true';
-    document.body.className = darkMode.value ? 'dark' : '';
-});
 
 </script>
 

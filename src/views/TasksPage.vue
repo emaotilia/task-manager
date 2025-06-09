@@ -15,7 +15,6 @@ const store = useStore();
 const router = useRouter();
 
 const tasks = computed(() => store.getters['tasks/getTasks']);
-
 onMounted(() => {
     loadTasks();
 });
@@ -25,7 +24,7 @@ const loadTasks = () => {
 };
 
 function updateTask(task) {
-    router.push(`/tasks/edit/${task.id}`);
+    router.push(`/tasks/updateTask/${task.id}`);
 }
 
 function deleteTask(id) {

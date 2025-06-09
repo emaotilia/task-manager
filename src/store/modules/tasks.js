@@ -3,9 +3,9 @@ const api = 'http://localhost:3001/tasks';
 
 export default {
     namespaced: true,
-    state: {
+    state: () => ({
         tasks: []
-    },
+    }),
 
     mutations: {
         setTasks(state, tasks) {
@@ -30,17 +30,18 @@ export default {
     },
     actions: {
         async fetchTasks({ commit, state }) {
-            const { tasks } = await axios.get(`${api}`);
-            commit('setTasks', tasks);
+            const { data } = await axios.get(`${api}`);
+            commit('setTasks', data);
         },
         async createTask({ commit, state }, task) {
             task.id = Date.now();
             task.isCompleted = false;
-            const { newTask } = await axios.post(api, task);
-            commit('addTask', newTask);
+            const { data } = await axios.post(api, task);
+            commit('addTask', data);
         },
-        updateTask({ commit }, updatedTask) {
-            commit('updateTask', updatedTask);
+        async updateTask({ commit }, updatedTask) {
+            const { data } = await axios.put(`${api}/${task.id}`, task);
+            commit('updateTask', data);
         },
 
         deleteTask({ commit }, id) {
@@ -52,7 +53,9 @@ export default {
         },
     },
     getters: {
-        getTasks: state => state.tasks,
+        getTasks: state => {
+            return state.tasks
+        },
         getTaskById: (state) => (id) => {
             return state.tasks.find(task => task.id === id);
         }
